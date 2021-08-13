@@ -11,6 +11,10 @@
 |
 */
 
+Route::resource('employees', EmployeeController::class);
+
+Route::get('/autocomplete', 'EmployeeController@fill')->name('autocomplete');
+
 Route::get('/', function () {
     return view('welcome');
 });
