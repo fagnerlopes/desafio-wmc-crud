@@ -48,3 +48,10 @@ php artisan migrate && php artisan db:seed
 
 Usuário: admin@dominio.com
 Senha: 123456
+
+### TODO
+[ ] Modal antes de excluir o registro
+[ ] Máscara do Salário e converter para gravação no banco
+[ ] Modal para logout
+[ ] Páginação dos resultados
+[ ] Pesquisa com livewire
