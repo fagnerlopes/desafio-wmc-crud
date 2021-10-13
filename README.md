@@ -29,7 +29,7 @@ docker-compose exec app bash
 composer install
 ```
 
-7) Instale as depenências do npm e compile os assets
+7) Instale as dependências do npm e compile os assets
 ```
 npm install && npm run dev
 ```
@@ -46,8 +46,8 @@ php artisan migrate && php artisan db:seed
 10) Logue na área restrita:
 (http://wmc.docker.localhost/login)
 
-Usuário: admin@dominio.com
-Senha: 123456
+**Usuário:** admin@dominio.com<br>
+**Senha:** 123456
 
 ### TODO
 [ ] Modal antes de excluir o registro
