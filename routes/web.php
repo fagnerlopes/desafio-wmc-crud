@@ -13,7 +13,7 @@
 
 Route::resource('employees', EmployeeController::class);
 
-Route::get('/autocomplete', 'EmployeeController@fill')->name('autocomplete');
+Route::post('/autocomplete', 'EmployeeController@fill')->name('autocomplete');
 
 Route::get('/', function () {
     return view('welcome');
@@ -21,4 +21,4 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/home', 'HomeController@index')->name('Dashboard.home');

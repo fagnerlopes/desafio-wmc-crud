@@ -15,7 +15,7 @@
             <div class="card">
                 <div class="card-header">Inclusão de funcionário</div>
                 <div class="container">
-                    
+
                     <form action="{{route('employees.store')}}" method="post">
                         @csrf
                         <div class="form-row">
@@ -46,11 +46,11 @@
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label for="description">Número</label>
-                                    <input type="text" id="address" name="address" class="form-control @if($errors->has('address')) is-invalid @endif"  value="{{old('address')}}">
-                                    @if($errors->has('description'))
+                                    <label for="number">Número</label>
+                                    <input type="text" id="number" name="number" class="form-control @if($errors->has('address')) is-invalid @endif"  value="{{old('address')}}">
+                                    @if($errors->has('number'))
                                         <span class="invalid-feedback">
-                                            {{$errors->first('description')}}
+                                            {{$errors->first('number')}}
                                         </span>
                                     @endif
                                 </div>
@@ -75,7 +75,7 @@
                                     <select id="state_id" name="state_id" class="form-control form-select-lg mb-3" aria-label=".form-select-lg">
                                         @foreach($states as $s)
                                             <option></option>
-                                            <option value="{{$s->id}}">{{ $s->id }} | {{ $s->uf }}</option>
+                                            <option value="{{$s->id}}">{{ $s->uf }}</option>
                                         @endforeach
                                     </select>
                                     @if($errors->has('state_id'))
@@ -87,12 +87,12 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="restaurant_id">Cidade</label>
-                                    <select id="city_id" name="city" class="form-control form-select-lg mb-3" aria-label=".form-select-lg">
-                                        @foreach($cities as $c)
+                                    <label for="city_id">Cidade</label>
+                                    <select id="city_id" name="city_id" class="form-control form-select-lg mb-3" aria-label=".form-select-lg">
+                                        {{--  @foreach($cities as $c)
                                             <option></option>
-                                            <option value="{{$c->id}}">{{$c->id}} | {{$c->name}}</option>
-                                        @endforeach
+                                            <option value="{{$c->id}}">{{$c->name}}</option>
+                                        @endforeach  --}}
                                     </select>
                                     @if($errors->has('city_id'))
                                         <span class="invalid-feedback">
@@ -100,7 +100,7 @@
                                         </span>
                                     @endif
                                 </div>
-                            </div>                            
+                            </div>
                         </div>
 
                         <div class="form-row">
@@ -152,6 +152,19 @@
                             </div>
                         </div>
                         <div class="form-row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="email">E-mail</label>
+                                    <input type="email" id="email" name="email" class="form-control @if($errors->has('phone')) is-invalid @endif"  value="{{old('phone')}}">
+                                    @if($errors->has('email'))
+                                        <span class="invalid-feedback">
+                                            {{$errors->first('email')}}
+                                        </span>
+                                    @endif
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row">
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="phone">Telefone</label>
@@ -180,7 +193,7 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="dob">Data de Nascimento</label>
-                                    <input type="text" id="dob" name="dob" class="form-control @if($errors->has('dob')) is-invalid @endif"  value="{{old('dob')}}">
+                                    <input type="date" id="dob" name="dob" class="form-control @if($errors->has('dob')) is-invalid @endif"  value="{{old('dob')}}">
                                     @if($errors->has('dob'))
                                         <span class="invalid-feedback">
                                             {{$errors->first('dob')}}
@@ -201,13 +214,13 @@
                             </div>
                         </div>
 
-                        
-                
+
+
                         <input class="btn btn-primary" type="submit" value="Cadastrar">
                         <a class="btn btn-outline-secondary" href="{{route('employees.index')}}" role="button">Voltar</a>
                     </form>
                 </div>
-                
+
                 </div>
             </div>
         </div>

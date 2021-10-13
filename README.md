@@ -12,36 +12,38 @@ git clone https://github.com/fagnerlopes/desafio-wmc-crud.git
 cd desafio-wmc-crud
 ```
 
-3) Suba o container:
+3) Copie o arquivo .env-example para .env
+
+4) Suba o container:
 ```
 docker-compose up -d
 ```
 
-4) Abra um terminal no serviço app:
+5) Abra um terminal no serviço app:
 ```
 docker-compose exec app bash
 ```
 
-5) Instale as dependências PHP
+6) Instale as dependências PHP
 ```
 composer install
 ```
 
-6) Instale as depenências do npm e compile os assets
+7) Instale as depenências do npm e compile os assets
 ```
 npm install && npm run dev
 ```
 
-7) Execute as migrations e os seeders
+8) Execute as migrations e os seeders
 ```
 php artisan migrate && php artisan db:seed
 ```
 
 
-8) Acesse a URL:
+9) Acesse a URL:
 (http://wmc.docker.localhost)
 
-9) Logue na área restrita:
+10) Logue na área restrita:
 (http://wmc.docker.localhost/login)
 
 Usuário: admin@dominio.com

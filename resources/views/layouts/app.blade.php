@@ -28,16 +28,16 @@
             <a class="navbar-brand" href="{{ url('/') }}">
                 {{ config('app.name', 'WMC') }}
             </a>
-        
+
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
                     aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-        
+
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
-        
-        
+
+
                 @auth
                     <li class="nav-item active">
                         <a class="nav-link" href="{{url('/home')}}">Home <span class="sr-only">(current)</span></a>
@@ -53,25 +53,25 @@
                         </div>
                     </li>
                 </ul>
-        
-        
-        
+
+
+
                 <!-- Right Side Of Navbar -->
-        
+
                 <ul class="navbar-nav ml-auto">
                     <!-- Authentication Links -->
                     <li class="nav-item dropdown">
                         <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                             {{ Auth::user()->name }} <span class="caret"></span>
                         </a>
-        
+
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                             <a class="dropdown-item" href="{{ route('logout') }}"
                                onclick="event.preventDefault();
                                                          document.getElementById('logout-form').submit();">
                                 {{ __('Sair') }}
                             </a>
-        
+
                             <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                 @csrf
                             </form>
@@ -87,7 +87,7 @@
                         </li>
                     @endguest
                 </ul>
-        
+
             </div>
         </nav>
 
@@ -97,21 +97,44 @@
     </div>
 
     <script type="text/javascript">
-        var path = "{{ route('autocomplete') }}";
-        $('.typeahead').typeahead({
-          source: function (typeahead, query) {
-            $.ajax({
-              url: path + '?query=' + query,
-              success: function(data) {
-                typeahead.process(data)
-              }
+        $("body").bind("ajaxSend", function(elm, xhr, s){
+            if (s.type == "POST") {
+               xhr.setRequestHeader('X-CSRF-Token', getCSRFTokenValue());
+            }
+         });
+
+
+        $(document).ready(function(){
+            $("#state_id").change(function(){
+                const stateId = $(this).val();
+
+                console.log("Id:" + stateId);
+
+                const  data = {
+                    _token: $('meta[name="csrf-token"]').attr('content'),
+                    id: stateId
+                };
+                console.log("Id:"+ JSON.stringify(data));
+
+                $.ajax({
+                    type: "POST",
+                    url: "{{ route('autocomplete') }}",
+                    data: data,
+                    cache: false,
+                    success: function(response) {
+                        console.log("Reponse:" + JSON.stringify(response['data']));
+
+                        if(response && response.length > 0){
+                            for(let i=0; i < response.length; i++){
+                                var option = `<option value='${response[i].id}'>${response[i].name}</option>`;
+
+                                $("#city_id").append(option);
+                            }
+                        }
+                    }
+                });
             });
-          },
-          onselect: function (obj) {
-            alert('Selecionou ' + obj.name)
-          },
-          property: "name"
-        })
+        });
      </script>
 </body>
 </html>

@@ -6,6 +6,7 @@ use App\City;
 use App\Employee;
 use App\State;
 use Illuminate\Http\Request;
+use Response;
 
 class EmployeeController extends Controller
 {
@@ -18,8 +19,6 @@ class EmployeeController extends Controller
     {
         $employees = Employee::all();
 
-        
-        
         return view('employee.index', compact(['employees']));
     }
 
@@ -44,10 +43,9 @@ class EmployeeController extends Controller
      */
     public function store(Request $request)
     {
-        
-        Employee::firstOrCreate([
+        Employee::firstOrCreate($request->except(['_token', 'state_id']));
 
-        ]);
+        return redirect()->route('Dashboard.home');
     }
 
     /**
@@ -99,12 +97,11 @@ class EmployeeController extends Controller
 
     public function fill(Request $request)
     {
-        $cities = City::select( "name" )
-            ->where( "name", "LIKE", "%{$request->input('query')}%" )
+        $cities = City::select( "id", "name" )
+            ->where( "state_id", $request->input('id'))
             ->get();
 
-        dd($cities);
         return response()->json($cities);
-        
+
     }
 }
