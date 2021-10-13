@@ -47,16 +47,19 @@ class EmployeeController extends Controller
      */
     public function store(Request $request)
     {
-        $validatedData = $request->validate([
+
+        $validator = $request->validate([
             'name' => 'required',
             'city_id' => 'required',
             'address' => 'required',
             'number' => 'required',
             'neighborhood' => 'required',
-            'postal_code' => 'required',
-            'cpf' => 'required',
-            'cell_phone' => 'required',
+            'postal_code' => 'required|formato_cep',
+            'cpf' => 'required|cpf',
+            'phone' => 'nullable|telefone_com_ddd',
+            'cell_phone' => 'required|celular_com_ddd',
             'email' => 'required|email:rfc,dns',
+            'dob' => 'nullable|date_format:d/m/Y',
             'wage' => 'required'
         ]);
 
@@ -65,15 +68,20 @@ class EmployeeController extends Controller
             Employee::create($request->except(['_token', 'state_id']));
             toastr()->success('Criado com sucesso!');
 
-        } catch (\Exception $e) {
-            if(config('DEBUG')) {
-                toastr()->error($e->getMessage());
-            } else {
-                toastr()->error('Falha ao criar o registro :(');
-            }
-        }
+            return redirect()->route('Dashboard.Employees.index');
 
-        return redirect()->route('Dashboard.Employees.index');
+        } catch (\Exception $e) {
+            // dd('erro');
+            // if(config('APP_DEBUG')) {
+            //     toastr()->error($e->getMessage());
+            // } else {
+            //     toastr()->error('Falha ao criar o registro :(');
+            // }
+
+            toastr()->error('Falha ao criar o registro :(');
+
+            return redirect()->back();
+        }
     }
 
     /**

@@ -141,7 +141,7 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="cpf">CPF</label>
-                                    <input type="text" id="cpf" name="cpf" class="form-control @if($errors->has('cpf')) is-invalid @endif"  value="{{old('cpf', $employee->cpf)}}">
+                                    <input type="text" id="cpf" name="cpf" class="form-control cpf @if($errors->has('cpf')) is-invalid @endif"  value="{{old('cpf', $employee->cpf)}}">
                                     @if($errors->has('cpf'))
                                         <span class="invalid-feedback">
                                             {{$errors->first('cpf')}}
@@ -178,7 +178,7 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="phone">Telefone</label>
-                                    <input type="text" id="phone" name="phone" class="form-control @if($errors->has('phone')) is-invalid @endif"  value="{{old('phone', $employee->phone)}}">
+                                    <input type="text" id="phone" name="phone" class="form-control phone_with_ddd @if($errors->has('phone')) is-invalid @endif"  value="{{old('phone', $employee->phone)}}">
                                     @if($errors->has('phone'))
                                         <span class="invalid-feedback">
                                             {{$errors->first('phone')}}
@@ -189,7 +189,7 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="cell_phone">Celular</label>
-                                    <input type="text" id="cell_phone" name="cell_phone" class="form-control @if($errors->has('cell_phone')) is-invalid @endif"  value="{{old('cell_phone', $employee->cell_phone)}}">
+                                    <input type="text" id="cell_phone" name="cell_phone" class="form-control cell_phone @if($errors->has('cell_phone')) is-invalid @endif"  value="{{old('cell_phone', $employee->cell_phone)}}">
                                     @if($errors->has('cell_phone'))
                                         <span class="invalid-feedback">
                                             {{$errors->first('cell_phone')}}
@@ -203,7 +203,7 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="dob">Data de Nascimento</label>
-                                    <input type="date" id="dob" name="dob" class="form-control @if($errors->has('dob')) is-invalid @endif"  value="{{old('dob', $employee->dob)}}">
+                                    <input type="text" id="dob" name="dob" class="form-control date @if($errors->has('dob')) is-invalid @endif"  value="{{old('dob', $employee->dob)}}">
                                     @if($errors->has('dob'))
                                         <span class="invalid-feedback">
                                             {{$errors->first('dob')}}
@@ -214,7 +214,7 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="wage">Salário</label>
-                                    <input type="text" id="wage" name="wage" class="form-control @if($errors->has('wage')) is-invalid @endif"  value="{{old('wage', $employee->wage)}}">
+                                    <input type="text" id="wage" name="wage" class="form-control money @if($errors->has('wage')) is-invalid @endif"  value="{{old('wage', $employee->wage)}}">
                                     @if($errors->has('wage'))
                                         <span class="invalid-feedback">
                                             {{$errors->first('wage')}}

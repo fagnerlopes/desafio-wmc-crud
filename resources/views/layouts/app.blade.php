@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html lang="pt-BR">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -105,6 +105,24 @@
     @jquery
     @toastr_js
     @toastr_render
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js" integrity="sha512-pHVGpX7F/27yZ0ISY+VVjyULApbDlD0/X0rgGbTqCE7WFW5MezNTWG/dnhtbBuICzsd0WQPgpE4REBLv+UqChw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function($){
+            $('.date').mask('00/00/0000');
+            $('.time').mask('00:00:00');
+            $('.date_time').mask('00/00/0000 00:00:00');
+            $('.cep').mask('00000-000');
+            $('.phone').mask('0000-0000');
+            $('.phone_with_ddd').mask('(00) 0000-0000');
+            $('.cell_phone').mask('(00) 00000-0000')
+            $('.phone_us').mask('(000) 000-0000');
+            $('.mixed').mask('AAA 000-S0S');
+            $('.cpf').mask('000.000.000-00', {reverse: true});
+            {{--  $('.money').mask('000000.00', {reverse: true});  --}}
+        });
+    </script>
 
     <script type="text/javascript">
         $("body").bind("ajaxSend", function(elm, xhr, s){
