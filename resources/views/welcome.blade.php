@@ -80,9 +80,10 @@
             @endif
 
             <div class="content">
-                <div class="title m-b-md">
+                <div class="title">
                     WMC
                 </div>
+                <div style="font-size: 2rem">SOFTWARE</div>
             </div>
         </div>
     </body>
