@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
 class Employee extends Model
@@ -23,8 +24,22 @@ class Employee extends Model
         'wage'
     ];
 
+    protected $dates = [
+        'dob'
+    ];
+
+    protected $casts = [
+        'wage' => 'double'
+    ];
+
     public function city()
     {
         return $this->belongsTo(City::class);
     }
+
+    public function getDobAttribute($value) {
+        return \Carbon\Carbon::parse($value)->format('d/m/Y');
+    }
+
+
 }

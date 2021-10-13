@@ -27,7 +27,7 @@ class CreateEmployeesTable extends Migration
             $table->string('rg', 15)->nullable();
             $table->string('phone', 15)->nullable();
             $table->string('cell_phone', 15);
-            $table->date('dob')->nullable();
+            $table->datetime('dob')->nullable();
             $table->string('email', 190);
             $table->double('wage', 15, 2);
             $table->timestamps();

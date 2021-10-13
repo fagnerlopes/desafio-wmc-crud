@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\City;
 use App\Employee;
 use App\State;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Response;
 use Illuminate\Validation\Rule;
@@ -63,25 +64,26 @@ class EmployeeController extends Controller
             'wage' => 'required'
         ]);
 
-        try {
+        $employee = Employee::create([
+            'name' => $request->input('name'),
+            'city_id' => $request->input('city_id'),
+            'address' => $request->input('address'),
+            'address_details' => $request->input('address_details'),
+            'number' => $request->input('number'),
+            'neighborhood' => $request->input('neighborhood'),
+            'postal_code' => $request->input('postal_code'),
+            'cpf' => $request->input('cpf'),
+            'phone' => $request->input('phone'),
+            'cell_phone' => $request->input('cell_phone'),
+            'email' => $request->input('email'),
+            'dob' => Carbon::createFromFormat('d/m/Y', $request->input('dob')),
+            'wage' => floatval($request->input('wage'))
+        ]);
 
-            Employee::create($request->except(['_token', 'state_id']));
-            toastr()->success('Criado com sucesso!');
+        toastr()->success('Criado com sucesso!');
 
-            return redirect()->route('Dashboard.Employees.index');
+        return redirect()->route('Dashboard.Employees.index');
 
-        } catch (\Exception $e) {
-            // dd('erro');
-            // if(config('APP_DEBUG')) {
-            //     toastr()->error($e->getMessage());
-            // } else {
-            //     toastr()->error('Falha ao criar o registro :(');
-            // }
-
-            toastr()->error('Falha ao criar o registro :(');
-
-            return redirect()->back();
-        }
     }
 
     /**
@@ -151,9 +153,9 @@ class EmployeeController extends Controller
                 'rg' => $request->input('rg'),
                 'phone' => $request->input('phone'),
                 'cell_phone' => $request->input('cell_phone'),
-                'dob' => $request->input('dob'),
-                'email' => $request->input('email'),
-                'wage' => $request->input('wage')
+                'dob' => Carbon::createFromFormat('d/m/Y',$request->input('dob')),
+                'email' =>  $request->input('email'),
+                'wage' => (float) $request->input('wage')
             ]);
 
             $employee->save();
@@ -161,7 +163,7 @@ class EmployeeController extends Controller
             toastr()->success('Atualizado com sucesso!');
 
         } catch (\Exception $e) {
-            if(config('DEBUG')) {
+            if(config('APP_DEBUG')) {
                 toastr()->error($e->getMessage());
             } else {
                 toastr()->error('Falha ao atualizar :(');

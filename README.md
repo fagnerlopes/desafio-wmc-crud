@@ -51,7 +51,8 @@ php artisan migrate && php artisan db:seed
 
 ### TODO
 [ ] Modal antes de excluir o registro
-[ ] Máscara do Salário e converter para gravação no banco
+[x] Máscara do Salário e converter para gravação no banco
+[x] Exibição correta da data ao buscar do banco
 [ ] Modal para logout
 [ ] Páginação dos resultados
 [ ] Pesquisa com livewire
