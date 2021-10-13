@@ -40,7 +40,7 @@
 
                 @auth
                     <li class="nav-item active">
-                        <a class="nav-link" href="{{url('/home')}}">Home <span class="sr-only">(current)</span></a>
+                        <a class="nav-link" href="{{ route('Dashboard.home') }}">Home <span class="sr-only">(current)</span></a>
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
@@ -48,7 +48,7 @@
                             Cadastros
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="{{route('employees.index')}}">Funcionários</a>
+                            <a class="dropdown-item" href="{{route('Dashboard.Employees.index')}}">Funcionários</a>
 
                         </div>
                     </li>

@@ -29,10 +29,13 @@ class EmployeeController extends Controller
      */
     public function create()
     {
+        $employee = new Employee();
         $cities = City::all();
         $states = State::all();
+        $method = 'POST';
+        $action = route('Dashboard.Employees.store');
 
-        return view('employee.create', compact('cities', 'states'));
+        return view('employee.form', compact('employee','cities', 'states', 'method', 'action'));
     }
 
     /**
@@ -45,7 +48,7 @@ class EmployeeController extends Controller
     {
         Employee::firstOrCreate($request->except(['_token', 'state_id']));
 
-        return redirect()->route('Dashboard.home');
+        return redirect()->back();
     }
 
     /**
@@ -68,8 +71,14 @@ class EmployeeController extends Controller
     public function edit($id)
     {
         $employee = Employee::find($id);
+        $cities = City::all();
+        $states = State::all();
+        $method = 'PUT';
+        $action = route('Dashboard.Employees.update', ['id' => $id]);
 
-        return view('employee.edit', compact(['employee']));
+        // dd($employee->city->state->id);
+
+        return view('employee.form', compact(['employee', 'method', 'action', 'cities', 'states']));
     }
 
     /**
@@ -81,7 +90,30 @@ class EmployeeController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $employee = Employee::find($id);
+
+        dd($employee);
+
+        $employee->update([
+            'name' => $request->input('name'),
+            'city_id' => $request->input('city_id'),
+            'address' => $request->input('address'),
+            'number' => $request->input('number'),
+            'neighborhood' => $request->input('neighborhood'),
+            'address_details' => $request->input('address_details'),
+            'postal_code' => $request->input('postal_code'),
+            'cpf' => $request->input('cpf'),
+            'rg' => $request->input('rg'),
+            'phone' => $request->input('phone'),
+            'cell_phone' => $request->input('cell_phone'),
+            'dob' => $request->input('dob'),
+            'email' => $request->input('email'),
+            'wage' => $request->input('wage')
+        ]);
+
+        $employee->save();
+
+        return redirect()->back();
     }
 
     /**
@@ -92,7 +124,10 @@ class EmployeeController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $employee = Employee::find($id);
+        $employee->delete();
+
+        return redirect()->back();
     }
 
     public function fill(Request $request)
