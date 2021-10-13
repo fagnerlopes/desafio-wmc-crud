@@ -28,10 +28,6 @@ class Employee extends Model
         'dob'
     ];
 
-    protected $casts = [
-        'wage' => 'double'
-    ];
-
     public function city()
     {
         return $this->belongsTo(City::class);
@@ -39,6 +35,10 @@ class Employee extends Model
 
     public function getDobAttribute($value) {
         return \Carbon\Carbon::parse($value)->format('d/m/Y');
+    }
+
+    public function getWageAttribute($value) {
+        return number_format($value, 2, ',', '.');
     }
 
 

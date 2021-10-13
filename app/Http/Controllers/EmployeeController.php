@@ -155,7 +155,7 @@ class EmployeeController extends Controller
                 'cell_phone' => $request->input('cell_phone'),
                 'dob' => Carbon::createFromFormat('d/m/Y',$request->input('dob')),
                 'email' =>  $request->input('email'),
-                'wage' => (float) $request->input('wage')
+                'wage' => self::Getfloat($request->input('wage'))
             ]);
 
             $employee->save();
@@ -207,4 +207,17 @@ class EmployeeController extends Controller
         return response()->json($cities);
 
     }
+
+    public static function Getfloat($str) {
+        if(strstr($str, ",")) {
+          $str = str_replace(".", "", $str);
+          $str = str_replace(",", ".", $str);
+        }
+
+        if(preg_match("#([0-9\.]+)#", $str, $match)) {
+          return floatval($match[0]);
+        } else {
+          return floatval($str);
+        }
+      }
 }
