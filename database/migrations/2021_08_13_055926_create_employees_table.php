@@ -21,13 +21,13 @@ class CreateEmployeesTable extends Migration
             $table->string('address');
             $table->string('number', 25);
             $table->string('neighborhood', 50);
-            $table->string('address_details', 50);
+            $table->string('address_details', 50)->nullable();
             $table->string('postal_code', 15);
             $table->string('cpf', 15)->unique();
             $table->string('rg', 15)->nullable();
             $table->string('phone', 15)->nullable();
             $table->string('cell_phone', 15);
-            $table->date('dob');
+            $table->date('dob')->nullable();
             $table->string('email', 190);
             $table->double('wage', 15, 2);
             $table->timestamps();

@@ -7,6 +7,7 @@ use App\Employee;
 use App\State;
 use Illuminate\Http\Request;
 use Response;
+use Illuminate\Validation\Rule;
 
 class EmployeeController extends Controller
 {
@@ -46,10 +47,33 @@ class EmployeeController extends Controller
      */
     public function store(Request $request)
     {
-        Employee::create($request->except(['_token', 'state_id']));
+        $validatedData = $request->validate([
+            'name' => 'required',
+            'city_id' => 'required',
+            'address' => 'required',
+            'number' => 'required',
+            'neighborhood' => 'required',
+            'postal_code' => 'required',
+            'cpf' => 'required',
+            'cell_phone' => 'required',
+            'email' => 'required|email:rfc,dns',
+            'wage' => 'required'
+        ]);
 
-        toastr()->success('Criado com sucesso!');
-        return redirect()->back();
+        try {
+
+            Employee::create($request->except(['_token', 'state_id']));
+            toastr()->success('Criado com sucesso!');
+
+        } catch (\Exception $e) {
+            if(config('DEBUG')) {
+                toastr()->error($e->getMessage());
+            } else {
+                toastr()->error('Falha ao criar o registro :(');
+            }
+        }
+
+        return redirect()->route('Dashboard.Employees.index');
     }
 
     /**
@@ -91,30 +115,51 @@ class EmployeeController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $employee = Employee::find($id);
-
-        // dd($employee);
-
-        $employee->update([
-            'name' => $request->input('name'),
-            'city_id' => $request->input('city_id'),
-            'address' => $request->input('address'),
-            'number' => $request->input('number'),
-            'neighborhood' => $request->input('neighborhood'),
-            'address_details' => $request->input('address_details'),
-            'postal_code' => $request->input('postal_code'),
-            'cpf' => $request->input('cpf'),
-            'rg' => $request->input('rg'),
-            'phone' => $request->input('phone'),
-            'cell_phone' => $request->input('cell_phone'),
-            'dob' => $request->input('dob'),
-            'email' => $request->input('email'),
-            'wage' => $request->input('wage')
+        $validatedData = $request->validate([
+            'name' => 'required',
+            'city_id' => 'required',
+            'address' => 'required',
+            'number' => 'required',
+            'neighborhood' => 'required',
+            'postal_code' => 'required',
+            'cpf' => 'required',
+            'cell_phone' => 'required',
+            'email' => 'required|email:rfc,dns',
+            'wage' => 'required'
         ]);
 
-        $employee->save();
+        $employee = Employee::find($id);
 
-        toastr()->success('Atualizado com sucesso!');
+        try {
+            $employee->update([
+                'name' => $request->input('name'),
+                'city_id' => $request->input('city_id'),
+                'address' => $request->input('address'),
+                'number' => $request->input('number'),
+                'neighborhood' => $request->input('neighborhood'),
+                'address_details' => $request->input('address_details'),
+                'postal_code' => $request->input('postal_code'),
+                'cpf' => $request->input('cpf'),
+                'rg' => $request->input('rg'),
+                'phone' => $request->input('phone'),
+                'cell_phone' => $request->input('cell_phone'),
+                'dob' => $request->input('dob'),
+                'email' => $request->input('email'),
+                'wage' => $request->input('wage')
+            ]);
+
+            $employee->save();
+
+            toastr()->success('Atualizado com sucesso!');
+
+        } catch (\Exception $e) {
+            if(config('DEBUG')) {
+                toastr()->error($e->getMessage());
+            } else {
+                toastr()->error('Falha ao atualizar :(');
+            }
+        }
+
         return redirect()->route('Dashboard.Employees.index');
     }
 
@@ -126,10 +171,20 @@ class EmployeeController extends Controller
      */
     public function destroy($id)
     {
-        $employee = Employee::find($id);
-        $employee->delete();
+        try {
+            $employee = Employee::find($id);
+            $employee->delete();
 
-        toastr()->success('Excluído com sucesso!');
+            toastr()->success('Excluído com sucesso!');
+
+        } catch (\Exception $e) {
+            if(config('DEBUG')) {
+                toastr()->error($e->getMessage());
+            } else {
+                toastr()->error('Falha ao excluir :(');
+            }
+        }
+
         return redirect()->back();
     }
 
