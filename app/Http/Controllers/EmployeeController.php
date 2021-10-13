@@ -32,7 +32,7 @@ class EmployeeController extends Controller
         $employee = new Employee();
         $cities = City::all();
         $states = State::all();
-        $method = 'POST';
+        $method = 'CREATE';
         $action = route('Dashboard.Employees.store');
 
         return view('employee.form', compact('employee','cities', 'states', 'method', 'action'));
@@ -46,8 +46,9 @@ class EmployeeController extends Controller
      */
     public function store(Request $request)
     {
-        Employee::firstOrCreate($request->except(['_token', 'state_id']));
+        Employee::create($request->except(['_token', 'state_id']));
 
+        toastr()->success('Criado com sucesso!');
         return redirect()->back();
     }
 
@@ -73,7 +74,7 @@ class EmployeeController extends Controller
         $employee = Employee::find($id);
         $cities = City::all();
         $states = State::all();
-        $method = 'PUT';
+        $method = 'UPDATE';
         $action = route('Dashboard.Employees.update', ['id' => $id]);
 
         // dd($employee->city->state->id);
@@ -92,7 +93,7 @@ class EmployeeController extends Controller
     {
         $employee = Employee::find($id);
 
-        dd($employee);
+        // dd($employee);
 
         $employee->update([
             'name' => $request->input('name'),
@@ -113,7 +114,8 @@ class EmployeeController extends Controller
 
         $employee->save();
 
-        return redirect()->back();
+        toastr()->success('Atualizado com sucesso!');
+        return redirect()->route('Dashboard.Employees.index');
     }
 
     /**
@@ -127,6 +129,7 @@ class EmployeeController extends Controller
         $employee = Employee::find($id);
         $employee->delete();
 
+        toastr()->success('Excluído com sucesso!');
         return redirect()->back();
     }
 

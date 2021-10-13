@@ -16,11 +16,17 @@
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
+
+
     <link rel="stylesheet" href="{{ asset('css/libs.css') }}" />
     <script src="{{ asset('js/libs.js') }}"></script>
 
+
+
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+
+    @toastr_css
 </head>
 <body>
     <div id="app">
@@ -95,6 +101,10 @@
             @yield('content')
         </main>
     </div>
+
+    @jquery
+    @toastr_js
+    @toastr_render
 
     <script type="text/javascript">
         $("body").bind("ajaxSend", function(elm, xhr, s){

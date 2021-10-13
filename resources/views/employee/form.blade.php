@@ -20,7 +20,7 @@
                 @endif
                 <div class="container">
 
-                    <form action="{{ $action }}" method="{{ $method }}">
+                    <form action="{{ $action }}" method="post">
                         @csrf
                         <div class="form-row">
                             <div class="col">
@@ -79,7 +79,7 @@
                                     <select id="state_id" name="state_id" class="form-control form-select-lg mb-3" aria-label=".form-select-lg">
                                         @foreach($states as $s)
                                             <option></option>
-                                            @if ($method === 'PUT')
+                                            @if ($method === 'UPDATE')
                                                 <option value="{{$s->id}}" {{ optional($employee)->city->state->id === $s->id ? 'selected' : ''}}>{{ $s->uf }}</option>
                                             @else
                                             <option value="{{$s->id}}">{{ $s->uf }}</option>
@@ -97,7 +97,7 @@
                                 <div class="form-group">
                                     <label for="city_id">Cidade</label>
                                     <select id="city_id" name="city_id" class="form-control form-select-lg mb-3" aria-label=".form-select-lg">
-                                        @if ($method === 'PUT')
+                                        @if ($method === 'UPDATE')
                                             @foreach($cities as $c)
                                                 <option></option>
                                                 <option value="{{$c->id}}" {{ optional($employee)->city->id === $c->id ? 'selected' : ''}}>{{$c->name}}</option>

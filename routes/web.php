@@ -13,14 +13,14 @@
 
 // Route::resource('employees', EmployeeController::class);
 
-Route::prefix('dashboard')->group(function(){
+Route::prefix('dashboard')->middleware(['web', 'auth'])->group(function(){
     Route::get('home', 'HomeController@index')->name('Dashboard.home');
     Route::get('employees', 'EmployeeController@index' )->name('Dashboard.Employees.index');
     Route::get('employees/cadastrar', 'EmployeeController@create')->name('Dashboard.Employees.create');
     Route::post('employees', 'EmployeeController@store')->name('Dashboard.Employees.store');
     Route::get('employees/{id}/editar', 'EmployeeController@edit')->name('Dashboard.Employees.edit');
-    Route::put('employees/{id}', 'EmployeeController@update')->name('Dashboard.Employees.update');
-    Route::delete('employees/{id}', 'EmployeeController@destroy')->name('Dashboard.Employees.destroy');
+    Route::post('employees/{id}', 'EmployeeController@update')->name('Dashboard.Employees.update');
+    Route::get('employees/deletar/{id}', 'EmployeeController@destroy')->name('Dashboard.Employees.destroy');
 });
 
 Route::post('/autocomplete', 'EmployeeController@fill')->name('autocomplete');
