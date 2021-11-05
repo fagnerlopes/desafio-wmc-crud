@@ -50,9 +50,9 @@ php artisan migrate && php artisan db:seed
 **Senha:** 123456
 
 ### TODO
-[ ] Modal antes de excluir o registro
-[x] Máscara do Salário e converter para gravação no banco
-[x] Exibição correta da data ao buscar do banco
-[ ] Modal para logout
-[ ] Páginação dos resultados
-[ ] Pesquisa com livewire
+[ ] Modal antes de excluir o registro<br>
+[x] Máscara do Salário e converter para gravação no banco<br>
+[x] Exibição correta da data ao buscar do banco<br>
+[ ] Modal para logout<br>
+[ ] Páginação dos resultados<br>
+[ ] Pesquisa com livewire<br>
